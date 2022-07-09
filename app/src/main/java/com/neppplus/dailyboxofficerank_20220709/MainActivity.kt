@@ -45,9 +45,15 @@ class MainActivity : BaseActivity() {
 //            날짜를 클릭하면 => 날짜 선택 팝업 출현
 
             val dsl = object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
+                override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
 
 //                    날짜를 선택하면 할 일 적는 공간
+
+//                    선택된 날짜를 => Calendar변수에 반영 (set)
+                    selectedDateCal.set(year, month, dayOfMonth)
+
+//                    화면 새로고침 => 확인 일자 문구 변경 / API 서버에 다시 요청
+                    refreshData()
 
                 }
 
@@ -109,4 +115,12 @@ class MainActivity : BaseActivity() {
         } )
 
     }
+
+    fun refreshData() {
+//        선택된 날짜 다시 반영
+
+        binding.txtDate.text = selectDateFormat.format( selectedDateCal.time )
+
+    }
+
 }
