@@ -1,7 +1,8 @@
 package com.neppplus.dailyboxofficerank_20220709
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.widget.DatePicker
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.neppplus.dailyboxofficerank_20220709.adapters.MovieRankAdapter
@@ -24,6 +25,9 @@ class MainActivity : BaseActivity() {
     lateinit var mAdapter: MovieRankAdapter
 
 
+    val selectDateFormat = SimpleDateFormat("yyyy년 M월 d일")
+
+
 //    순위를 확인하기 위해 선택된 날짜를 저장할 Calendar 변수
     val selectedDateCal = Calendar.getInstance()  // 기본값 : 현재 일시
 
@@ -36,15 +40,40 @@ class MainActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+        binding.txtDate.setOnClickListener {
+
+//            날짜를 클릭하면 => 날짜 선택 팝업 출현
+
+            val dsl = object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
+
+//                    날짜를 선택하면 할 일 적는 공간
+
+                }
+
+            }
+
+            val datePicker = DatePickerDialog(
+                mContext,
+                dsl,
+                selectedDateCal.get(Calendar.YEAR),
+                selectedDateCal.get(Calendar.MONTH),
+                selectedDateCal.get(Calendar.DAY_OF_MONTH)
+            )
+
+            datePicker.show()
+
+
+        }
+
     }
 
     override fun setValues() {
 
 //        순위 확인 일자를 => 오늘 날짜로 설정. => 기본값 활용 (SimpleDateFormat 연계)
 
-        val sdf = SimpleDateFormat("yyyy년 M월 d일")
 
-        binding.txtDate.text = sdf.format( selectedDateCal.time )
+        binding.txtDate.text = selectDateFormat.format( selectedDateCal.time )
 
 
         mAdapter = MovieRankAdapter(mContext, mMovieRankList)
