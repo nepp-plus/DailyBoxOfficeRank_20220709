@@ -26,6 +26,7 @@ class MainActivity : BaseActivity() {
 
 
     val selectDateFormat = SimpleDateFormat("yyyy년 M월 d일")
+    val serverFormat = SimpleDateFormat("yyyyMMdd")
 
 
 //    순위를 확인하기 위해 선택된 날짜를 저장할 Calendar 변수
@@ -120,6 +121,35 @@ class MainActivity : BaseActivity() {
 //        선택된 날짜 다시 반영
 
         binding.txtDate.text = selectDateFormat.format( selectedDateCal.time )
+
+//        선택 된 날짜의 박스오피스 랭킹 정보 재 반영
+
+        apiList.getRequestDailyBoxOfficeList(
+            "2a89c2cedd0c7b1f191ea981d791e172",
+            serverFormat.format( selectedDateCal.time )
+        ).enqueue( object : Callback<BasicResponse> {
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if (response.isSuccessful) {
+                    val br = response.body()!!
+
+                    mMovieRankList.clear()
+
+                    mMovieRankList.addAll( br.boxOfficeResult.dailyBoxOfficeList )
+
+                    mAdapter.notifyDataSetChanged()
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+            }
+
+
+        })
+
 
     }
 
