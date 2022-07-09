@@ -23,6 +23,15 @@ data class MovieRankData(
 
 //    데이터 클래스도 함수를 갖는게 가능함.
 
+    fun getFormattedTotalAudience(): String {
+//        String인 총 관객수 => Int로 변경 => 세자리마다 컴마
+
+        val totalAudiNum = this.audiAcc.toInt()
+
+        return "${"%,d".format(totalAudiNum)} 명"
+
+    }
+
     fun getFormattedRankInten() : String {
 
 //        0 : "-"

@@ -28,7 +28,7 @@ class MovieRankAdapter(
             txtRankChange.text = data.getFormattedRankInten()
             txtTitle.text = data.movieNm
             txtOpenDate.text = data.openDt
-            txtTotalAudi.text = data.audiAcc
+            txtTotalAudi.text = data.getFormattedTotalAudience()
 
         }
 
