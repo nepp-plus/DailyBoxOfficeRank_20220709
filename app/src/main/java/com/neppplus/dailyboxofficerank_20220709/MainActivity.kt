@@ -11,6 +11,7 @@ import com.neppplus.dailyboxofficerank_20220709.datas.MovieRankData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,9 +40,11 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-//        순위 확인 일자를 => 오늘 날짜로 설정. => 기본값 활용 (임시 - 가공 방식 다르게)
+//        순위 확인 일자를 => 오늘 날짜로 설정. => 기본값 활용 (SimpleDateFormat 연계)
 
-        binding.txtDate.text = "${ selectedDateCal.get(Calendar.YEAR) }년 ${ selectedDateCal.get(Calendar.MONTH) }월 ${ selectedDateCal.get(Calendar.DAY_OF_MONTH) }일"
+        val sdf = SimpleDateFormat("yyyy년 M월 d일")
+
+        binding.txtDate.text = sdf.format( selectedDateCal.time )
 
 
         mAdapter = MovieRankAdapter(mContext, mMovieRankList)
