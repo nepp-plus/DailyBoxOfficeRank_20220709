@@ -11,6 +11,8 @@ import com.neppplus.dailyboxofficerank_20220709.datas.MovieRankData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : BaseActivity() {
 
@@ -19,6 +21,10 @@ class MainActivity : BaseActivity() {
     val mMovieRankList = ArrayList< MovieRankData >()
 
     lateinit var mAdapter: MovieRankAdapter
+
+
+//    순위를 확인하기 위해 선택된 날짜를 저장할 Calendar 변수
+    val selectedDateCal = Calendar.getInstance()  // 기본값 : 현재 일시
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +38,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+//        순위 확인 일자를 => 오늘 날짜로 설정. => 기본값 활용 (임시 - 가공 방식 다르게)
+
+        binding.txtDate.text = "${ selectedDateCal.get(Calendar.YEAR) }년 ${ selectedDateCal.get(Calendar.MONTH) }월 ${ selectedDateCal.get(Calendar.DAY_OF_MONTH) }일"
+
 
         mAdapter = MovieRankAdapter(mContext, mMovieRankList)
         binding.movieRankRecyclerView.adapter = mAdapter
