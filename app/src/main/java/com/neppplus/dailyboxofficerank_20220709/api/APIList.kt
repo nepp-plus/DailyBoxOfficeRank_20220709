@@ -1,0 +1,14 @@
+package com.neppplus.dailyboxofficerank_20220709.api
+
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface APIList {
+
+    @GET("/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json")
+    fun getRequestDailyBoxOfficeList(
+        @Query("key") key: String,
+        @Query("targetDt") date: String,
+    )
+
+}
