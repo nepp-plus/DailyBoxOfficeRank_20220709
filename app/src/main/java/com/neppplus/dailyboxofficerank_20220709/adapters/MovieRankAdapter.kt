@@ -25,7 +25,7 @@ class MovieRankAdapter(
         fun bind( data: MovieRankData ) {
 
             txtRank.text = data.rank
-            txtRankChange.text = data.rankInten
+            txtRankChange.text = data.getFormattedRankInten()
             txtTitle.text = data.movieNm
             txtOpenDate.text = data.openDt
             txtTotalAudi.text = data.audiAcc
